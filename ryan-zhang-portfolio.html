@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Zhang — Mechanical Engineering</title>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&family=Mulish:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0c;
+    --s1: #141414;
+    --s2: #1c1c1c;
+    --border: #2a2a2a;
+    --text: #f0ede8;
+    --sub: #7a7570;
+    --dim: #333;
+    --red: #cc1230;
+    --red2: #e8394f;
+    --silver: #8a9aaa;
+    --gold: #c8a84a;
+    --green: #3a9870;
+    --orange: #d4621a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Mulish', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    pointer-events: none;
+    z-index: 1000;
+  }
+
+  .page { max-width: 1040px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* HEADER */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    margin-bottom: 52px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--red);
+  }
+
+  .headline {
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    font-size: clamp(60px, 12vw, 120px);
+    line-height: 0.88;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .headline .name { color: var(--red); display: block; }
+  .headline .field { color: var(--text); }
+  .headline .uni {
+    display: block;
+    font-weight: 300;
+    font-size: 0.35em;
+    letter-spacing: 0.1em;
+    color: var(--sub);
+    margin-top: 10px;
+    text-transform: uppercase;
+  }
+
+  .header-contact { text-align: right; padding-bottom: 4px; }
+
+  .contact-item {
+    font-size: 11px;
+    color: var(--sub);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .contact-item a { color: var(--silver); text-decoration: none; transition: color 0.2s; }
+  .contact-item a:hover { color: var(--text); }
+
+  .contact-icon { color: var(--red); font-size: 12px; width: 14px; text-align: center; }
+
+  /* NAV STRIP */
+  .nav-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.08s ease both;
+  }
+
+  .nav-cell {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    padding: 16px 12px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .nav-cell::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.2s;
+  }
+
+  .nav-cell:hover { background: var(--s2); }
+
+  .nav-cell.c-rfr::after   { background: var(--red); }
+  .nav-cell.c-vd::after    { background: var(--silver); }
+  .nav-cell.c-aero::after  { background: var(--gold); }
+  .nav-cell.c-proj::after  { background: var(--green); }
+  .nav-cell.c-saw::after   { background: var(--orange); }
+
+  .nav-cell.selected { background: var(--s2); transform: translateY(-1px); }
+  .nav-cell.selected.c-rfr  { border-color: var(--red); }
+  .nav-cell.selected.c-vd   { border-color: var(--silver); }
+  .nav-cell.selected.c-aero { border-color: var(--gold); }
+  .nav-cell.selected.c-proj { border-color: var(--green); }
+  .nav-cell.selected.c-saw  { border-color: var(--orange); }
+
+  .nav-label {
+    font-family: 'Teko', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .nav-sub {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sub);
+    line-height: 1.4;
+  }
+
+  .nav-cell.c-rfr .nav-sub   { color: var(--red); }
+  .nav-cell.c-vd .nav-sub    { color: var(--silver); }
+  .nav-cell.c-aero .nav-sub  { color: var(--gold); }
+  .nav-cell.c-proj .nav-sub  { color: var(--green); }
+  .nav-cell.c-saw .nav-sub   { color: var(--orange); }
+
+  /* DETAIL */
+  .detail { min-height: 420px; animation: fadeUp 0.6s 0.12s ease both; }
+  .panel { display: none; animation: panelIn 0.3s ease both; }
+  .panel.visible { display: block; }
+
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .panel-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .panel-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--sub);
+    margin-bottom: 6px;
+  }
+
+  .panel-title {
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    font-size: clamp(34px, 5.5vw, 56px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .t-red    { color: var(--red); }
+  .t-silver { color: var(--silver); }
+  .t-gold   { color: var(--gold); }
+  .t-green  { color: var(--green); }
+  .t-orange { color: var(--orange); }
+
+  .panel-date {
+    font-family: 'Teko', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--sub);
+    margin-top: 6px;
+  }
+
+  .panel-summary {
+    max-width: 340px;
+    font-size: 12px;
+    color: var(--sub);
+    line-height: 1.7;
+    text-align: right;
+    font-style: italic;
+  }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .cards-grid-2x2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid-2x2 { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--s1);
+    border: 1px solid var(--border);
+  }
+
+  .card-head {
+    padding: 14px 20px 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-title {
+    font-family: 'Teko', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .badge {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  .b-red    { background: rgba(204,18,48,0.12);  color: var(--red);    border: 1px solid rgba(204,18,48,0.25); }
+  .b-silver { background: rgba(138,154,170,0.1); color: var(--silver); border: 1px solid rgba(138,154,170,0.2); }
+  .b-gold   { background: rgba(200,168,74,0.1);  color: var(--gold);   border: 1px solid rgba(200,168,74,0.2); }
+  .b-green  { background: rgba(58,152,112,0.1);  color: var(--green);  border: 1px solid rgba(58,152,112,0.2); }
+  .b-orange { background: rgba(212,98,26,0.1);   color: var(--orange); border: 1px solid rgba(212,98,26,0.22); }
+
+  .bullet-list { padding: 4px 0; }
+
+  .bullet-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 20px;
+    border-bottom: 1px solid rgba(42,42,42,0.7);
+    font-size: 12px;
+    line-height: 1.6;
+    transition: background 0.12s;
+  }
+
+  .bullet-item:last-child { border-bottom: none; }
+  .bullet-item:hover { background: var(--s2); }
+
+  .bullet-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .dot-red    { background: var(--red); }
+  .dot-silver { background: var(--silver); }
+  .dot-gold   { background: var(--gold); }
+  .dot-green  { background: var(--green); }
+  .dot-orange { background: var(--orange); }
+
+  .bullet-text { color: #c0bbb5; font-weight: 300; }
+  .bullet-text strong { color: var(--text); font-weight: 500; }
+
+  /* STAT ROW */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .stat-box {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Teko', sans-serif;
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-desc {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sub);
+  }
+
+  /* SKILLS ROW */
+  .skills-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .skill-tag {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sub);
+    transition: all 0.15s;
+  }
+
+  .skill-tag:hover { background: var(--s2); color: var(--text); }
+
+  /* DEFAULT */
+  .default-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    border: 1px solid var(--border);
+    background: var(--s1);
+    color: var(--sub);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+  .footer-link {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sub);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .footer-link:hover { color: var(--text); }
+  .footer-link::before { content: '↗'; font-size: 10px; color: var(--red); }
+
+  .footer-name {
+    font-family: 'Teko', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--sub);
+    text-transform: uppercase;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .header { grid-template-columns: 1fr; }
+    .header-contact { text-align: left; }
+    .header-contact .contact-item { justify-content: flex-start; }
+    .nav-strip { grid-template-columns: repeat(3, 1fr); }
+    .panel-head { flex-direction: column; }
+    .panel-summary { text-align: left; }
+    .stat-row { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="eyebrow">Mechanical Engineering Portfolio</div>
+      <div class="headline">
+        <span class="name">Ryan Zhang</span>
+        <span class="field">Mechanical Engineer</span>
+        <span class="uni">Magna Cum Laude · B.S. Mechanical Engineering · Rutgers University</span>
+      </div>
+    </div>
+    <div class="header-contact">
+      <div class="contact-item"><span class="contact-icon">✉</span><a href="mailto:RyanZhang2022@gmail.com">RyanZhang2022@gmail.com</a></div>
+      <div class="contact-item"><span class="contact-icon">☎</span><span>(929) 990-5983</span></div>
+      <div class="contact-item"><span class="contact-icon">in</span><a href="https://linkedin.com/in/ryan-zhang-b8704a2ab/" target="_blank">linkedin.com/in/ryan-zhang-b8704a2ab</a></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="nav-strip">
+    <div class="nav-cell c-vd" data-panel="vd">
+      <span class="nav-label">Vehicle Dynamics</span>
+      <span class="nav-sub">Steering Weight Reduction</span>
+    </div>
+    <div class="nav-cell c-aero" data-panel="aero">
+      <span class="nav-label">Aerodynamics</span>
+      <span class="nav-sub">CFD Simulation</span>
+    </div>
+    <div class="nav-cell c-rfr" data-panel="powertrain">
+      <span class="nav-label">Mech Powertrain</span>
+      <span class="nav-sub">Precision Machining</span>
+    </div>
+    <div class="nav-cell c-proj" data-panel="proj">
+      <span class="nav-label">Smart Cane</span>
+      <span class="nav-sub">Design &amp; Mfg Lead</span>
+    </div>
+    <div class="nav-cell c-saw" data-panel="saw">
+      <span class="nav-label">Elec. Chainsaw</span>
+      <span class="nav-sub">Design Lead · CAD</span>
+    </div>
+  </div>
+
+  <!-- DETAIL -->
+  <div class="detail">
+    <div id="default-msg" class="default-prompt">← Select a section</div>
+
+    <!-- MECHANICAL POWERTRAIN -->
+    <div class="panel" id="panel-powertrain">
+      <div class="panel-head">
+        <div>
+          <div class="panel-eyebrow">Mechanical Powertrain · RFR</div>
+          <div class="panel-title t-red">Mechanical<br>Powertrain</div>
+          <div class="panel-date">Rutgers Formula Racing · Fall 2023 — Present</div>
+        </div>
+        <div class="panel-summary">Precision machining work supporting the electric drivetrain of the RFR Formula SAE car. Focused on manufacturing custom jigs and fixtures critical for correct powertrain alignment and chassis integration.</div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num t-red">EV</div>
+          <div class="stat-desc">Electric Powertrain</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num t-red">CNC</div>
+          <div class="stat-desc">Lathe Machining</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num t-red">FSAE</div>
+          <div class="stat-desc">Formula SAE</div>
+        </div>
+      </div>
+
+      <div class="cards-grid" style="margin-top:2px;">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Accumulator Alignment</div>
+            <div class="badge b-red">Precision Machining</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Machined high-precision jigs using a lathe to properly align the accumulator to the chassis — a critical step for safe and reliable electric powertrain integration.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Jig accuracy directly affects accumulator position relative to the chassis, impacting weight distribution, structural integrity, and electrical safety clearances.</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Manufacturing Process</div>
+            <div class="badge b-silver">Lathe · Fixtures</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Operated a manual lathe to achieve tight tolerances required for race-car-grade components where misalignment has direct performance and safety consequences.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Collaborated with the powertrain and chassis sub-teams to validate fit and function of machined parts within the full vehicle assembly.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-row">
+        <div class="skill-tag">Lathe Machining</div>
+        <div class="skill-tag">Precision Fixturing</div>
+        <div class="skill-tag">GD&T</div>
+        <div class="skill-tag">Electric Powertrain</div>
+        <div class="skill-tag">SolidWorks</div>
+        <div class="skill-tag">Formula SAE</div>
+      </div>
+    </div>
+    <!-- VEHICLE DYNAMICS -->
+    <div class="panel" id="panel-vd">
+      <div class="panel-head">
+        <div>
+          <div class="panel-eyebrow">Vehicle Dynamics · Rutgers Formula Racing</div>
+          <div class="panel-title t-silver">Steering Weight<br>Reduction</div>
+          <div class="panel-date">162.99 N → 110.31 N · 32.3% Reduction in Driver Effort</div>
+        </div>
+        <div class="panel-summary">Full analytical investigation into steering effort sources on a Formula SAE electric race car. Developed MATLAB models quantifying both friction and suspension geometry contributions, then implemented a geometry modification achieving a 32.3% reduction in steering force without altering tire grip or self-aligning torque characteristics.</div>
+      </div>
+
+      <div class="cards-grid-2x2">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Tire Friction Model</div>
+            <div class="badge b-silver">MATLAB · Force Analysis</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Identified tire-ground friction as the dominant steering load source. Racing slicks (μ ≈ 0.8) generate substantially higher frictional torque at the contact patch than road tires, feeding directly into the steering column via the upright and tie rod.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Derived force path analytically: <strong>F_friction = μ · M_corner · g → T_ground = F_f · r_scrub → F_tierod = T_g / d_tierod → F_rack = F_t × 2 → T_pinion = F_r · r_pinion → F_wheel = T_pinion / r_steer</strong>. Implemented in MATLAB with parametric inputs for scrub radius, tie rod length, rack ratio, and steering wheel radius.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Key parameters: m = 318.15 kg, F_bias = 47.77% front, r_scrub = 44.96 mm, r_steer = 123.83 mm, d_tierod = 23.13 mm, r_pinion = 7.94 mm.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Suspension Geometry Model</div>
+            <div class="badge b-silver">KPI · Caster · MATLAB</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Modeled the steering effort contribution from Kingpin Inclination Angle (KPI = 0.099 rad) and Caster (0.087 rad). During cornering, these angles cause the chassis to physically lift and lower — requiring the driver to work against vehicle weight in addition to tire friction.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Height gain equations: <strong>h_KPI = r_scrub · sin(KPI) · δ</strong> and <strong>h_Caster = trail · sin(Caster) · δ</strong>, where δ = steering lock angle (0.314 rad). Total lift h_t = h_KPI + h_Caster; work W = F_front · h_t; converted to steering force via rack and wheel ratios.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Combined friction and suspension models give full driver effort at any steering angle. Ackermann geometry noted as a model limitation — inner/outer wheels trace different radii, making absolute force values less meaningful than percent differences between configurations.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Design Trade-off Analysis</div>
+            <div class="badge b-red">Caster · KPI · Geometry</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Evaluated three potential reduction strategies: (1) reduce Caster — lowers lift-induced effort and reduces negative camber gain on the outside wheel, but reduces cornering grip; (2) increase KPI — decreases scrub radius and friction torque, but increases self-aligning torque making steering heavier at low speeds; (3) increase mechanical advantage — no effect on tire behavior.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Caster and KPI modifications were rejected as both create unacceptable handling compromises — self-aligning torque must be maintained within a calibrated range to preserve driver feedback. Too little torque produces numb, unpredictable steering; too much reintroduces the original problem.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Concluded that increasing the tie rod lever arm was the only modification that reduced effort without altering suspension kinematics, camber curves, or self-aligning torque characteristics.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Implementation &amp; Result</div>
+            <div class="badge b-red">32.3% · 162.99 N → 110.31 N</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Solution: translated the steering rack forward <strong>½ in</strong> and the tie rod upright mounting point forward <strong>½ in</strong> simultaneously. This increases the perpendicular distance from the kingpin axis to the tie rod line of action — effectively lengthening the lever arm the driver has over the tire contact patch.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">All suspension geometry (caster, KPI, camber curves, toe), self-aligning torque, and Ackermann behavior remain unchanged. The only kinematic consequence is a marginal reduction in maximum achievable steering angle, which was evaluated against the vehicle's minimum turning radius requirement and confirmed acceptable.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Measured outcome: driver steering effort reduced from <strong>162.99 N to 110.31 N</strong> — a <strong>32.3% decrease</strong>. Reduction verified by MATLAB model comparison between original and modified tie rod geometry configurations. Physical validation ongoing through track testing.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-row">
+        <div class="skill-tag">MATLAB</div>
+        <div class="skill-tag">Suspension Kinematics</div>
+        <div class="skill-tag">Force &amp; Torque Analysis</div>
+        <div class="skill-tag">KPI / Caster Geometry</div>
+        <div class="skill-tag">Scrub Radius Optimization</div>
+        <div class="skill-tag">Ackermann Geometry</div>
+        <div class="skill-tag">Self-Aligning Torque</div>
+        <div class="skill-tag">SolidWorks</div>
+      </div>
+    </div>
+
+    <!-- AERODYNAMICS -->
+    <div class="panel" id="panel-aero">
+      <div class="panel-head">
+        <div>
+          <div class="panel-eyebrow">Aerodynamics · RFR</div>
+          <div class="panel-title t-gold">CFD<br>Simulations</div>
+          <div class="panel-date">ANSYS Fluent · Cradle CFD</div>
+        </div>
+        <div class="panel-summary">High-fidelity CFD simulations on the full aerodynamic package — front wing, rear wing, and diffuser — to evaluate downforce, drag, and flow behavior for performance optimization.</div>
+      </div>
+
+      <div class="cards-grid">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Simulation Setup</div>
+            <div class="badge b-gold">CFD</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Developed parametric 3D CAD models of each aero component and generated high-quality structured and unstructured meshes for turbulent, incompressible flow.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Utilized turbulence models including <strong>k-ε and k-ω SST</strong> to capture flow separation, vortex generation, and boundary layer behavior.</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Analysis</div>
+            <div class="badge b-gold">Downforce + Drag</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Analyzed downforce, drag, and pressure distribution under varying <strong>angles of attack and ride heights</strong>.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Investigated front/rear aero interaction with the diffuser for vehicle balance, ground effect, and underbody flow acceleration.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Calculated lift-to-drag ratios, identified flow recirculation zones, and validated design iterations to propose geometry modifications.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-row">
+        <div class="skill-tag">ANSYS Fluent</div>
+        <div class="skill-tag">Cradle CFD</div>
+        <div class="skill-tag">k-ε Turbulence Model</div>
+        <div class="skill-tag">k-ω SST</div>
+        <div class="skill-tag">Mesh Generation</div>
+        <div class="skill-tag">Parametric CAD</div>
+        <div class="skill-tag">Downforce Optimization</div>
+        <div class="skill-tag">Ground Effect</div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="panel" id="panel-proj">
+      <div class="panel-head">
+        <div>
+          <div class="panel-eyebrow">Independent Project · Design &amp; Manufacturing Lead</div>
+          <div class="panel-title t-green">Smart Walking<br>Cane</div>
+          <div class="panel-date">Spring 2026 · 10 Prototypes · ASA Final Production</div>
+        </div>
+        <div class="panel-summary">End-to-end design and manufacture of an obstacle-detection walking cane that outperforms commercial competitors on all key metrics: 15% longer battery life, 10% further detection range, 25% of the cost, at only 100g additional weight. Role encompassed problem definition, DFM-driven CAD, material selection, iterative 3D printing, and tolerance refinement across 10 full prototype cycles.</div>
+      </div>
+
+      <div class="cards-grid-2x2">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Problem Definition</div>
+            <div class="badge b-green">Requirements Engineering</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Traditional canes rely entirely on physical contact for obstacle detection — table surfaces, hanging AC units, and elevated hazards go undetected until impact, representing a critical safety gap for visually impaired users.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Competitive benchmarking established target specifications: <strong>15% longer battery life</strong>, <strong>10% further detection range</strong>, <strong>25% of competitor cost</strong>, weight penalty ≤ 100g. All four targets met in final design.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">System-level architecture defined to integrate ultrasonic/IR sensor array, microcontroller, power management circuit, and haptic/audio feedback within a housing attachable to standard cane handles without permanent modification.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Housing Design &amp; DFM</div>
+            <div class="badge b-green">SolidWorks · GD&amp;T · DFM</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Housing designed to minimum footprint while accommodating full electronics assembly with accessible wire routing for field repair. Internal geometry optimized around PCB envelope, battery cell dimensions, and connector clearances.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Material selection: <strong>ASA</strong> chosen over PLA and PETG for UV resistance (outdoor use), moisture resistance, chemical resistance, and favorable strength-to-cost ratio for final production shells. PLA used exclusively for prototype iterations to reduce cost and cycle time.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Sensor housing geometry required vertical shell orientation during FDM printing, placing layer lines transverse to primary load direction — identified as a structural failure point. Resolved through internal pocket redesign redistributing load away from layer interfaces.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Tolerance &amp; Print Iteration</div>
+            <div class="badge b-green">FDM · ±0.1mm · 10 Prototypes</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Completed <strong>10 full prototype cycles</strong> at 6-hour print durations per cycle in PLA, systematically varying wall thickness, infill density, and print orientation to characterize dimensional variance across builds.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Part clearances refined to <strong>±0.1 mm</strong> after empirical measurement of print variance — critical for snap-fit closure, sensor port alignment, and button actuator travel distance. Clearance values tuned per feature type based on measured printer repeatability.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Rounded hinge geometry initially produced support-dependent surfaces with unacceptable surface finish and dimensional inaccuracy at the hinge bore. Redesigned to <strong>45° chamfers</strong>, eliminating support structures entirely while maintaining structural cross-section and achieving print-in-place tolerances.</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Hardware &amp; Software Integration</div>
+            <div class="badge b-green">Embedded Systems · Active</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Currently manufacturing and assembling final production units in ASA. Internal hardware integration ongoing — routing, securing, and connecting sensor array, microcontroller, and power management components within the finalized housing geometry.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">Embedded software under active optimization for detection algorithm response latency, false-positive filtering, and power consumption profiling to validate the 15% battery life improvement target against measured draw under field operating conditions.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-green"></div><div class="bullet-text">End-to-end ownership of the project: problem definition → system architecture → mechanical design → DFM iteration → tolerance validation → hardware assembly → software tuning. No team — sole designer and manufacturing lead throughout.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-row">
+        <div class="skill-tag">SolidWorks</div>
+        <div class="skill-tag">FDM 3D Printing</div>
+        <div class="skill-tag">DFM</div>
+        <div class="skill-tag">ASA / PLA Material Selection</div>
+        <div class="skill-tag">GD&amp;T</div>
+        <div class="skill-tag">Tolerance Stack-up</div>
+        <div class="skill-tag">Embedded Systems</div>
+        <div class="skill-tag">PCB Integration</div>
+        <div class="skill-tag">Prototype Iteration</div>
+      </div>
+    </div>
+
+    <!-- ELECTRIC CHAINSAW -->
+    <div class="panel" id="panel-saw">
+      <div class="panel-head">
+        <div>
+          <div class="panel-eyebrow">Independent Project · Design Lead</div>
+          <div class="panel-title t-orange">Electric<br>Chainsaw</div>
+          <div class="panel-date">Fall 2023 · 50+ Components · Full CAD Assembly</div>
+        </div>
+        <div class="panel-summary">Led a team in developing a complete parametric CAD model of an electric chainsaw — 50+ components spanning external housing, internal drive mechanism, cooling system, and gear reduction train. Design process balanced ergonomics, packaging constraints, motor thermal management, and operator safety.</div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-box">
+          <div class="stat-num t-orange">50+</div>
+          <div class="stat-desc">CAD Components</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num t-orange">GR</div>
+          <div class="stat-desc">Gear Reduction Train</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num t-orange">DFM</div>
+          <div class="stat-desc">Ergonomic Housing</div>
+        </div>
+      </div>
+
+      <div class="cards-grid" style="margin-top:2px;">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Housing &amp; Ergonomics</div>
+            <div class="badge b-orange">SolidWorks · Industrial Design</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Designed the external housing with ergonomics and operator utility as primary constraints. Handle geometry and grip angle determined by two-handed operational posture to minimize fatigue during extended use.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Incorporated a <strong>clear polycarbonate hand guard</strong> positioned to maintain full sightlines to the bar and chain during cutting — a direct safety requirement driven by operator visibility analysis.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Protruding foot geometry on the housing underside ensures the chain bar is always elevated off a flat surface when the tool is set down — preventing contact damage to the chain and eliminating a common kick-start hazard.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Housing packaging optimized around motor envelope, battery cell dimensions, and chain tensioner access — internal volume allocated in priority order: motor cooling path first, then battery, then electronics, with all service access points designed for tool-free entry.</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Drive Mechanism &amp; Gear Train</div>
+            <div class="badge b-orange">Gear Reduction · Thermal Management</div>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Motor selection and placement optimized to <strong>maximize motor diameter</strong> within the housing cross-section — larger motor volume directly improves continuous torque output and reduces thermal load per unit length of stator.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Motor output shaft drives an integrated <strong>centrifugal cooling fan</strong> directly — no parasitic belt or coupling losses. Fan geometry sized to maintain adequate airflow over the motor end windings at operating RPM range.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Spur gear set steps down motor speed to match chain sprocket requirements. Gear ratio selection balanced between chain speed (cutting performance) and torque multiplication (load handling) — ratio finalized through chain speed and cutting force calculations.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-orange"></div><div class="bullet-text">Complete drivetrain modeled as a full parametric assembly: motor shaft → fan hub → pinion gear → driven gear → clutch drum → sprocket → chain. Each interface modeled with correct mating constraints and clearances to validate no interference across the operating envelope.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-row">
+        <div class="skill-tag">SolidWorks</div>
+        <div class="skill-tag">Full Assembly Modeling</div>
+        <div class="skill-tag">Gear Train Design</div>
+        <div class="skill-tag">Thermal Management</div>
+        <div class="skill-tag">Ergonomic Design</div>
+        <div class="skill-tag">DFM</div>
+        <div class="skill-tag">Parametric CAD</div>
+        <div class="skill-tag">Tolerance &amp; Fit Analysis</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-links">
+      <a class="footer-link" href="mailto:RyanZhang2022@gmail.com">RyanZhang2022@gmail.com</a>
+      <a class="footer-link" href="https://linkedin.com/in/ryan-zhang-b8704a2ab/" target="_blank">LinkedIn</a>
+      <a class="footer-link" href="tel:9299905983">(929) 990-5983</a>
+    </div>
+    <div class="footer-name">Ryan Zhang · Mechanical Engineering</div>
+  </div>
+
+</div>
+
+<script>
+  const cells = document.querySelectorAll('.nav-cell');
+  const panels = document.querySelectorAll('.panel');
+  const defaultMsg = document.getElementById('default-msg');
+
+  cells.forEach(cell => {
+    cell.addEventListener('click', () => {
+      const id = cell.dataset.panel;
+      cells.forEach(c => c.classList.remove('selected'));
+      cell.classList.add('selected');
+      defaultMsg.style.display = 'none';
+      panels.forEach(p => p.classList.remove('visible'));
+      const panel = document.getElementById('panel-' + id);
+      if (panel) panel.classList.add('visible');
+    });
+  });
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelector('[data-panel="vd"]').click();
+    }, 400);
+  });
+</script>
+</body>
+</html>
