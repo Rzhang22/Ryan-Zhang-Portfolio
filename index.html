@@ -507,21 +507,6 @@
         <div class="panel-summary">Precision machining work supporting the electric drivetrain of the RFR Formula SAE car. Focused on manufacturing custom jigs and fixtures critical for correct powertrain alignment and chassis integration.</div>
       </div>
 
-      <div class="stat-row">
-        <div class="stat-box">
-          <div class="stat-num t-red">EV</div>
-          <div class="stat-desc">Electric Powertrain</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num t-red">CNC</div>
-          <div class="stat-desc">Lathe Machining</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num t-red">FSAE</div>
-          <div class="stat-desc">Formula SAE</div>
-        </div>
-      </div>
-
       <div class="cards-grid" style="margin-top:2px;">
         <div class="card">
           <div class="card-head">
@@ -531,16 +516,20 @@
           <div class="bullet-list">
             <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Machined high-precision jigs using a lathe to properly align the accumulator to the chassis — a critical step for safe and reliable electric powertrain integration.</div></div>
             <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Jig accuracy directly affects accumulator position relative to the chassis, impacting weight distribution, structural integrity, and electrical safety clearances.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Jig geometry developed from SolidWorks reference model — critical dimensions transferred to setup sheet and verified with calipers at each machining stage to ensure final part matched design intent within tolerance.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Accumulator alignment directly governs high-voltage connector engagement and pack compressive preload; misalignment outside tolerance risked both structural and electrical failure modes, making jig precision a safety-critical requirement.</div></div>
           </div>
         </div>
         <div class="card">
           <div class="card-head">
             <div class="card-title">Manufacturing Process</div>
-            <div class="badge b-silver">Lathe · Fixtures</div>
+            <div class="badge b-red">Lathe · Fixtures</div>
           </div>
           <div class="bullet-list">
-            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Operated a manual lathe to achieve tight tolerances required for race-car-grade components where misalignment has direct performance and safety consequences.</div></div>
-            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Collaborated with the powertrain and chassis sub-teams to validate fit and function of machined parts within the full vehicle assembly.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Operated a manual lathe to achieve tight tolerances required for race-car-grade components where misalignment has direct performance and safety consequences.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Collaborated with the powertrain and chassis sub-teams to validate fit and function of machined parts within the full vehicle assembly.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Machining operations sequenced to minimize setup changes — facing, turning, and boring completed in a single chuck setup where possible to preserve concentricity and reduce cumulative positional error.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Parts inspected against engineering drawings post-machining using calipers and go/no-go gauges; any out-of-tolerance features flagged and disposition determined in coordination with the powertrain lead before assembly.</div></div>
           </div>
         </div>
       </div>
@@ -593,24 +582,24 @@
         <div class="card">
           <div class="card-head">
             <div class="card-title">Design Trade-off Analysis</div>
-            <div class="badge b-red">Caster · KPI · Geometry</div>
+            <div class="badge b-silver">Caster · KPI · Geometry</div>
           </div>
           <div class="bullet-list">
-            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Evaluated three potential reduction strategies: (1) reduce Caster — lowers lift-induced effort and reduces negative camber gain on the outside wheel, but reduces cornering grip; (2) increase KPI — decreases scrub radius and friction torque, but increases self-aligning torque making steering heavier at low speeds; (3) increase mechanical advantage — no effect on tire behavior.</div></div>
-            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Caster and KPI modifications were rejected as both create unacceptable handling compromises — self-aligning torque must be maintained within a calibrated range to preserve driver feedback. Too little torque produces numb, unpredictable steering; too much reintroduces the original problem.</div></div>
-            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Concluded that increasing the tie rod lever arm was the only modification that reduced effort without altering suspension kinematics, camber curves, or self-aligning torque characteristics.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Evaluated three potential reduction strategies: (1) reduce Caster — lowers lift-induced effort and reduces negative camber gain on the outside wheel, but reduces cornering grip; (2) increase KPI — decreases scrub radius and friction torque, but increases self-aligning torque making steering heavier at low speeds; (3) increase mechanical advantage — no effect on tire behavior.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Caster and KPI modifications were rejected as both create unacceptable handling compromises — self-aligning torque must be maintained within a calibrated range to preserve driver feedback. Too little torque produces numb, unpredictable steering; too much reintroduces the original problem.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Concluded that increasing the tie rod lever arm was the only modification that reduced effort without altering suspension kinematics, camber curves, or self-aligning torque characteristics.</div></div>
           </div>
         </div>
 
         <div class="card">
           <div class="card-head">
             <div class="card-title">Implementation &amp; Result</div>
-            <div class="badge b-red">32.3% · 162.99 N → 110.31 N</div>
+            <div class="badge b-silver">32.3% · 162.99 N → 110.31 N</div>
           </div>
           <div class="bullet-list">
-            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Solution: translated the steering rack forward <strong>½ in</strong> and the tie rod upright mounting point forward <strong>½ in</strong> simultaneously. This increases the perpendicular distance from the kingpin axis to the tie rod line of action — effectively lengthening the lever arm the driver has over the tire contact patch.</div></div>
-            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">All suspension geometry (caster, KPI, camber curves, toe), self-aligning torque, and Ackermann behavior remain unchanged. The only kinematic consequence is a marginal reduction in maximum achievable steering angle, which was evaluated against the vehicle's minimum turning radius requirement and confirmed acceptable.</div></div>
-            <div class="bullet-item"><div class="bullet-dot dot-red"></div><div class="bullet-text">Measured outcome: driver steering effort reduced from <strong>162.99 N to 110.31 N</strong> — a <strong>32.3% decrease</strong>. Reduction verified by MATLAB model comparison between original and modified tie rod geometry configurations. Physical validation ongoing through track testing.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Solution: translated the steering rack forward <strong>½ in</strong> and the tie rod upright mounting point forward <strong>½ in</strong> simultaneously. This increases the perpendicular distance from the kingpin axis to the tie rod line of action — effectively lengthening the lever arm the driver has over the tire contact patch.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">All suspension geometry (caster, KPI, camber curves, toe), self-aligning torque, and Ackermann behavior remain unchanged. The only kinematic consequence is a marginal reduction in maximum achievable steering angle, which was evaluated against the vehicle's minimum turning radius requirement and confirmed acceptable.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-silver"></div><div class="bullet-text">Measured outcome: driver steering effort reduced from <strong>162.99 N to 110.31 N</strong> — a <strong>32.3% decrease</strong>. Reduction verified by MATLAB model comparison between original and modified tie rod geometry configurations. Physical validation ongoing through track testing.</div></div>
           </div>
         </div>
       </div>
@@ -647,6 +636,8 @@
           <div class="bullet-list">
             <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Developed parametric 3D CAD models of each aero component and generated high-quality structured and unstructured meshes for turbulent, incompressible flow.</div></div>
             <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Utilized turbulence models including <strong>k-ε and k-ω SST</strong> to capture flow separation, vortex generation, and boundary layer behavior.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Mesh refinement applied at leading edges, trailing edges, and near-wall regions using inflation layers to resolve the boundary layer velocity gradient accurately — y⁺ values maintained within the valid range for each turbulence model.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Simulation domain sized with inlet, outlet, and symmetry boundary conditions set to replicate open-road freestream conditions. Convergence monitored via residual plots and force coefficient stabilization across iterations.</div></div>
           </div>
         </div>
         <div class="card">
@@ -658,6 +649,8 @@
             <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Analyzed downforce, drag, and pressure distribution under varying <strong>angles of attack and ride heights</strong>.</div></div>
             <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Investigated front/rear aero interaction with the diffuser for vehicle balance, ground effect, and underbody flow acceleration.</div></div>
             <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Calculated lift-to-drag ratios, identified flow recirculation zones, and validated design iterations to propose geometry modifications.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Compared pressure coefficient distributions across multiple wing configurations to isolate the contribution of endplate geometry and flap angle on total downforce — used to justify final aero package selection.</div></div>
+            <div class="bullet-item"><div class="bullet-dot dot-gold"></div><div class="bullet-text">Post-processed velocity and turbulence kinetic energy fields to identify wake interaction between front and rear wing elements, informing ride height and rake angle adjustments to reduce aerodynamic interference drag.</div></div>
           </div>
         </div>
       </div>
@@ -757,21 +750,6 @@
           <div class="panel-date">Fall 2023 · 50+ Components · Full CAD Assembly</div>
         </div>
         <div class="panel-summary">Led a team in developing a complete parametric CAD model of an electric chainsaw — 50+ components spanning external housing, internal drive mechanism, cooling system, and gear reduction train. Design process balanced ergonomics, packaging constraints, motor thermal management, and operator safety.</div>
-      </div>
-
-      <div class="stat-row">
-        <div class="stat-box">
-          <div class="stat-num t-orange">50+</div>
-          <div class="stat-desc">CAD Components</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num t-orange">GR</div>
-          <div class="stat-desc">Gear Reduction Train</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-num t-orange">DFM</div>
-          <div class="stat-desc">Ergonomic Housing</div>
-        </div>
       </div>
 
       <div class="cards-grid" style="margin-top:2px;">
